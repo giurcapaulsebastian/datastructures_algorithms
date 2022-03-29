@@ -1,3 +1,17 @@
+def check_location(list,number,middle):
+    #1 5 5 5 12 34 56
+    middle_number = list[middle]
+    if list[middle] == number:
+        if middle-1 >=0 and list[middle-1] == number:
+            return "left"
+        else:
+            return "found"
+    if list[middle] > number:
+        return "left"
+    else:
+        return "right"
+
+
 def binary_search(list, number):
     if list[0] == number:
         return 0
@@ -6,17 +20,17 @@ def binary_search(list, number):
     l,h = 0, len(list)-1
     while l <= h:
         middle = (l+h)//2
-        mid_number = list[middle]
-        if  mid_number == number:
+        found = check_location(list,number,middle)
+        if  found == "found":
             return middle
-        elif mid_number > number:
+        elif found == "left":
             h = middle - 1
-        elif mid_number < number:
+        elif found == "right":
             l = middle + 1
     return -1
 
 
-list = [1,3,4,5,12,34,56]
-number = 2
+list = [1,5,5,5,12,34,56]
+number = 5
 poz = binary_search(list,number)
 print("Position of number '{}' in the list '{}' is : {}".format(number,list,poz))
